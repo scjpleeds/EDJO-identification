@@ -6,45 +6,47 @@ from scipy.ndimage import binary_fill_holes
 from skimage.measure import find_contours
 
 def pix_to_lat(pixel,lat):
-
+    # converts points from the pixel space to latitude via a linear tranformation 
     dlat,latmax = abs(lat[0]-lat[-1])/len(lat),np.max(abs(lat))
     lat = latmax-dlat*pixel    
     return lat
 
 def pix_to_lon(pixel,lon):
-
+    # converts points from the pixel space to longitude via a linear tranformation 
     dlon,lonmax = abs(lon[0]-lon[-1])/len(lon),np.max(abs(lon))
     lon = dlon*pixel-lonmax
 
     return lon
 
 class EDJregion: 
+    #EDJ region class object 
+    
     def __init__(self,blob,flood,field,area,lon,lat):
         global R; 
-        R = 6371e3
-        self.blob = blob
-        self.field = field
-        self.area = area.data
-        self.lon = lon
-        self.lat = lat
-        self.flood = flood
+        R = 6371e3 #radius of the earth
+        self.blob = blob #region found by the blob_finder function in my_regions.py
+        self.field = field #the zonal wind field you used to find the regions
+        self.area = area.data #the gridcell area
+        self.lon = lon # longitude points
+        self.lat = lat # latitude points
+        self.flood = flood # flood mask, also provided by the blob_finder as an output 
 
     def region_area(self): 
         A=self.area 
         BLOB_COORDS=self.blob.coords
         return np.sum(np.array([A[y,x] for y,x in BLOB_COORDS]))
      
-    def mass(self): 
+    def mass(self): #computes Umass
         F=self.field
         A=self.area 
         BLOB_COORDS=self.blob.coords
         return np.sum([F[y,x]*A[y,x] for y,x in BLOB_COORDS])
     
-    def mean_intensity(self):
+    def mean_intensity(self): #computes Umean
 
         return self.mass()/self.region_area()
 
-    def phibar(self): 
+    def phibar(self): # computes phibar
         F = self.field
         A =  self.area
         LAT = self.lat
@@ -54,7 +56,7 @@ class EDJregion:
         mu01= np.sum([F[y,x]*A[y,x]*LAT[y] for y,x in BLOB_COORDS])
         return mu01/MASS
 
-    def lambdabar(self): 
+    def lambdabar(self): #computes lambdabar
         F = self.field
         A =  self.area
         LON = self.lon
@@ -64,7 +66,7 @@ class EDJregion:
         
         return mu10/MASS
 
-    def alpha(self): 
+    def alpha(self): #computes alpha or the tilt and returns it in degrees
    
         a,b,b,c = self.get_inertia_tensor().flat
 
@@ -95,7 +97,7 @@ class EDJregion:
     def get_axis_width(self):
         return (3/1e3)*np.sqrt(np.min(np.linalg.eigvals(self.get_inertia_tensor()))/self.mass())
 
-    def length(self):
+    def length(self): #computes the length of the region using a line extrapolation method 
         #Use Rtree or SRTree to speed this up ? - https://stackoverflow.com/questions/14697442/faster-way-of-polygon-intersection-with-shapely
         
         BLOB = self.blob
@@ -146,7 +148,7 @@ class EDJregion:
 
         return length
             
-    def zonal_length(self):
+    def zonal_length(self):#returns the zonal length of the region. 
         BLOB_BOX = self.blob.bbox
         LON = self.lon
 
