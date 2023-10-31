@@ -5,48 +5,52 @@ from geopy.distance import geodesic
 from scipy.ndimage import binary_fill_holes
 from skimage.measure import find_contours
 
+
+# Functions to convert pixel coordinates to latitude and longitude
 def pix_to_lat(pixel,lat):
-    # converts points from the pixel space to latitude via a linear tranformation 
+
     dlat,latmax = abs(lat[0]-lat[-1])/len(lat),np.max(abs(lat))
     lat = latmax-dlat*pixel    
     return lat
 
 def pix_to_lon(pixel,lon):
-    # converts points from the pixel space to longitude via a linear tranformation 
+
     dlon,lonmax = abs(lon[0]-lon[-1])/len(lon),np.max(abs(lon))
     lon = dlon*pixel-lonmax
 
     return lon
 
 class EDJregion: 
-    #EDJ region class object 
-    
     def __init__(self,blob,flood,field,area,lon,lat):
+        # Global definitions 
         global R; 
-        R = 6371e3 #radius of the earth
-        self.blob = blob #region found by the blob_finder function in my_regions.py
-        self.field = field #the zonal wind field you used to find the regions
-        self.area = area.data #the gridcell area
-        self.lon = lon # longitude points
-        self.lat = lat # latitude points
-        self.flood = flood # flood mask, also provided by the blob_finder as an output 
+        R = 6371e3
+        self.blob = blob
+        self.field = field
+        self.area = area.data
+        self.lon = lon
+        self.lat = lat
+        self.flood = flood
 
     def region_area(self): 
+        # finds the area of a region
         A=self.area 
         BLOB_COORDS=self.blob.coords
         return np.sum(np.array([A[y,x] for y,x in BLOB_COORDS]))
      
-    def mass(self): #computes Umass
+    def mass(self): 
+        # finds the 'mass' of a region
         F=self.field
         A=self.area 
         BLOB_COORDS=self.blob.coords
         return np.sum([F[y,x]*A[y,x] for y,x in BLOB_COORDS])
     
-    def mean_intensity(self): #computes Umean
-
+    def mean_intensity(self):
+        # Finds the average strength of a region
         return self.mass()/self.region_area()
 
-    def phibar(self): # computes phibar
+    def phibar(self): 
+        # Finds the centre of mass in latitude
         F = self.field
         A =  self.area
         LAT = self.lat
@@ -56,7 +60,8 @@ class EDJregion:
         mu01= np.sum([F[y,x]*A[y,x]*LAT[y] for y,x in BLOB_COORDS])
         return mu01/MASS
 
-    def lambdabar(self): #computes lambdabar
+    def lambdabar(self): 
+        # Finds the centre of mass in longitude
         F = self.field
         A =  self.area
         LON = self.lon
@@ -66,8 +71,8 @@ class EDJregion:
         
         return mu10/MASS
 
-    def alpha(self): #computes alpha or the tilt and returns it in degrees
-   
+    def alpha(self): 
+        # Calulates the tilt of a region
         a,b,b,c = self.get_inertia_tensor().flat
 
         if a-c==0:
@@ -79,6 +84,7 @@ class EDJregion:
             return np.degrees(0.5*np.arctan2(-2*b,a-c))%180-90
 
     def get_inertia_tensor(self):
+        # Finds the inertia tensor of a region
         F = self.field
         A = self.area
         BLOB_COORDS = self.blob.coords
@@ -92,13 +98,15 @@ class EDJregion:
         return np.array([[mu20,mu11],[mu11,mu02]])
     
     def get_axis_length(self):
+        # Finds the lenght of a region from the major axis
         return (3/1e3)*np.sqrt(np.max(np.linalg.eigvals(self.get_inertia_tensor()))/self.mass())
     
     def get_axis_width(self):
+        # Finds the widith of a region from the minor axis
         return (3/1e3)*np.sqrt(np.min(np.linalg.eigvals(self.get_inertia_tensor()))/self.mass())
-
-    def length(self): #computes the length of the region using a line extrapolation method 
-        #Use Rtree or SRTree to speed this up ? - https://stackoverflow.com/questions/14697442/faster-way-of-polygon-intersection-with-shapely
+    
+    def length(self):
+        #finds the length of an EDJO using line extrapolation
         
         BLOB = self.blob
         LON = self.lon
@@ -147,8 +155,10 @@ class EDJregion:
         length = geodesic((lat0,lon0),(lat1,lon1)).km
 
         return length
-            
-    def zonal_length(self):#returns the zonal length of the region. 
+        
+
+    def zonal_length(self):
+        # Finds the zonal length of an EDJO
         BLOB_BOX = self.blob.bbox
         LON = self.lon
 
@@ -157,5 +167,9 @@ class EDJregion:
         return abs(abs(LON[min_row])-abs(LON[max_row-1]))
 
     def plot_region(): 
-
+        # Function to plot region - not complete
         return 0
+
+
+
+
