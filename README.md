@@ -15,3 +15,5 @@ In the folder EDJO_finding_scripts, you will find 5 files:
 If you only want to apply the method then you need to install the conda environment using the jet_env.yml, then update the inputs.py with the relevant files (wind and grid area data) and processing (low pass filtering, domain slicing, choice of region size, choice of Ucrit value). Once these are updated you can run the edjo_diagnostic_finding_script.py which will save two files, one containing all of the EDJOs found and another only containg the EDJOs with the largest mass. 
 
 The other files contain the code that finds the objects (find_blobs.py) and the EDJO class (my_regions.py) which is used to calculate the various diagnostics. 
+
+Any questions or comments please don't hesitate to contact me: scjp@leeds.ac.uk
