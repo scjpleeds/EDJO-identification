@@ -2,7 +2,7 @@
 
 PATH = ' ' # path for where to save the files 
 output_fname ='ERA5_19592020_diagnostics_Ucrit8' # two output files are made, <output_fname>_full.npz contains all data with no distinction between regions 
-                  # <output_fname>_lm.npz contains the data of the regions with the largest umass on days with multiple objects
+                                                 # <output_fname>_lm.npz contains the data of the regions with the largest umass on days with multiple objects
 
 var_cube_fname =  'U.nc' # Zonal wind cube file path 
 grid_cube_fname = 'gridarea.nc' # grid area cube file path 
