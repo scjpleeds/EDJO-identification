@@ -65,7 +65,7 @@ class EDJregion:
         return mu10/MASS
 
     def alpha(self): 
-   
+    # Calculation here is taken from skimage.regionprops 
         a,b,b,c = self.get_inertia_tensor().flat
 
         if a-c==0:
