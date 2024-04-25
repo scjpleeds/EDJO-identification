@@ -90,7 +90,6 @@ def blob_finder(wind,Ucrit,gridarea,region_length,zonal_length):
 
     lon,lat = wind.coord('longitude').points,wind.coord('latitude').points
     if np.max(lon)!=180: 
-        print('converting longitudes')
         lon = (lon + 180) % 360 - 180
 
     for day in days: 
