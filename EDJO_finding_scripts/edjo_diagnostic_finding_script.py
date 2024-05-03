@@ -182,5 +182,5 @@ mean_intensity = np.array(mean_intensity,dtype=object)
 major_axis_length = np.array(major_axis_length_values,dtype=object)
 minor_axis_length = np.array(minor_axis_length_values,dtype=object)
 
-np.savez(output_fname+'_lm.npz',phibar=com_y,lambdabar=com_x,alpha=orientation_values,umean=mean_intensity,umass=mass_values,area=area_values,major_axis_length=major_axis_length,minor_axis_length=minor_axis_length,labels=num_of_labels,regions=largest_mass_regions,flood=largest_mass_flood)
-np.savez(output_fname+'_full.npz',phibar=com_y_full,lambdabar=com_x_full,alpha=orientation_values_full,umean=mean_intensity_full,area=area_full,umass=mass_full,major_axis_length=major_axis_length_full,minor_axis_length=minor_axis_length_full,labels=num_of_labels,regions=regions_store,flood=flood_store)
+np.savez(PATH+output_fname+'_lm.npz',phibar=com_y,lambdabar=com_x,alpha=orientation_values,umean=mean_intensity,umass=mass_values,area=area_values,major_axis_length=major_axis_length,minor_axis_length=minor_axis_length,labels=num_of_labels,regions=largest_mass_regions,flood=largest_mass_flood)
+np.savez(PATH+output_fname+'_full.npz',phibar=com_y_full,lambdabar=com_x_full,alpha=orientation_values_full,umean=mean_intensity_full,area=area_full,umass=mass_full,major_axis_length=major_axis_length_full,minor_axis_length=minor_axis_length_full,labels=num_of_labels,regions=regions_store,flood=flood_store)
