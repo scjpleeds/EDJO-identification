@@ -28,9 +28,9 @@ dependencies:
   - brotli-python=1.0.9=py311h814d153_9
   - bzip2=1.0.8=h0d85af4_4
   - c-ares=1.19.1=h0dc2134_0
-  - ca-certificates=2023.05.30=hecd8cb5_0
+  - ca-certificates=2023.11.17=h8857fd0_0
   - cartopy=0.21.1=py311hb21c73c_1
-  - certifi=2023.5.7=py311hecd8cb5_0
+  - certifi=2023.11.17=pyhd8ed1ab_0
   - cf-units=3.2.0=py311h4a70a88_0
   - cftime=1.6.2=py311hd5badaa_1
   - charset-normalizer=3.2.0=pyhd8ed1ab_0
@@ -42,6 +42,7 @@ dependencies:
   - dask-core=2023.7.0=pyhd8ed1ab_0
   - debugpy=1.6.7=py311h814d153_0
   - decorator=5.1.1=pyhd8ed1ab_0
+  - eofs=1.4.1=pyhd8ed1ab_1
   - executing=1.2.0=pyhd8ed1ab_0
   - expat=2.5.0=hf0c8a7f_1
   - fonttools=4.41.0=py311h2725bcf_0
@@ -111,7 +112,7 @@ dependencies:
   - netcdf4=1.6.4=nompi_py311ha27cd03_101
   - numpy=1.25.1=py311hc44ba51_0
   - openjpeg=2.5.0=h13ac156_2
-  - openssl=3.1.1=h8a1eda9_1
+  - openssl=3.2.0=hd75f5a5_1
   - packaging=23.1=pyhd8ed1ab_0
   - pandas=2.0.3=py311hab14417_1
   - parso=0.8.3=pyhd8ed1ab_0
@@ -181,11 +182,18 @@ dependencies:
   - pip:
       - geographiclib==2.0
       - geopy==2.3.0
+      - global-land-mask==1.0.0
       - imageio==2.31.1
       - lazy-loader==0.3
+      - littleutils==0.2.2
+      - mjoindices==1.4.1
       - networkx==3.1
+      - outdated==0.2.2
+      - pandas-flavor==0.6.0
+      - pingouin==0.5.3
       - pytropd==2.12
       - pywavelets==1.4.1
       - scikit-image==0.21.0
+      - tabulate==0.9.0
       - tifffile==2023.7.10
 prefix: /Users/admin/anaconda3/envs/jet_env
