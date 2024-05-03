@@ -8,7 +8,7 @@ import tqdm as tqdm
 warnings.filterwarnings('ignore')
 
 
-PATH = '/Users/admin/OneDrive - University of Leeds/ARC4/scripts/' # path for where to save the files 
+#PATH = '/Users/admin/OneDrive - University of Leeds/ARC4/scripts/' # path for where to save the files 
 # two output files are made, <output_fname>_full.npz contains all data with no distinction between regions 
                   # <output_fname>_lm.npz contains the data of the regions with the largest umass on days with multiple objects
 
