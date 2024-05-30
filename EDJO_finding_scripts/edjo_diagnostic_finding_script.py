@@ -12,14 +12,14 @@ warnings.filterwarnings('ignore')
 # two output files are made, <output_fname>_full.npz contains all data with no distinction between regions 
                   # <output_fname>_lm.npz contains the data of the regions with the largest umass on days with multiple objects
 
-#var_cube_fname =  '/Users/admin/OneDrive - University of Leeds/ARC4/ERA/U19592020/U.nc' # Zonal wind cube file path 
-#grid_cube_fname = '/Users/admin/OneDrive - University of Leeds/ARC4/scripts/gridarea.nc' # grid area cube file path 
+var_cube_fname =  ' ' # Zonal wind cube file path 
+grid_cube_fname = ' ' # grid area cube file path 
 
 
-#cube_constraints = [(-60,0),(15,75),(850,850)] # Cube constraints, if already done with input cube enter as None 
+cube_constraints = [(-60,0),(15,75),(850,850)] # Cube constraints, if already done with input cube enter as None 
 
-#filtering = True # Apply a low pass Lanczos filter to the wind data 
-#window, length = 61,10
+filtering = True # Apply a low pass Lanczos filter to the wind data 
+window, length = 61,10
 
 
 # Importing data
@@ -44,16 +44,13 @@ if np.diff(pressure_constraint)!=0:
 
 ### Constraints for the EDJO finding algorithm 
 
-#min_length = 1661
-#min_zonal_length = 20
-#flood_val = 8
 # Running EDJO finding algorithm 
     
 
 
 
-#output_fname ='ERA5_19592020_diagnostics_filtered' 
-regions_store,flood_store,region_maxima_coords= blob_finder(var_cube,flood_val,grid_cube,min_length,min_zonal_length)
+output_fname ='' 
+regions_store,flood_store,region_maxima_coords,ucrit_vals= blob_finder(var_cube,flood_val,grid_cube,min_length,min_zonal_length)
 
 
 #----------- Extracting Diagnotics ----------- # 
@@ -182,5 +179,5 @@ mean_intensity = np.array(mean_intensity,dtype=object)
 major_axis_length = np.array(major_axis_length_values,dtype=object)
 minor_axis_length = np.array(minor_axis_length_values,dtype=object)
 
-np.savez(PATH+output_fname+'_lm.npz',phibar=com_y,lambdabar=com_x,alpha=orientation_values,umean=mean_intensity,umass=mass_values,area=area_values,major_axis_length=major_axis_length,minor_axis_length=minor_axis_length,labels=num_of_labels,regions=largest_mass_regions,flood=largest_mass_flood)
-np.savez(PATH+output_fname+'_full.npz',phibar=com_y_full,lambdabar=com_x_full,alpha=orientation_values_full,umean=mean_intensity_full,area=area_full,umass=mass_full,major_axis_length=major_axis_length_full,minor_axis_length=minor_axis_length_full,labels=num_of_labels,regions=regions_store,flood=flood_store)
+np.savez(PATH+output_fname+'_lm.npz',ucrit=ucrit_vals,phibar=com_y,lambdabar=com_x,alpha=orientation_values,umean=mean_intensity,umass=mass_values,area=area_values,major_axis_length=major_axis_length,minor_axis_length=minor_axis_length,labels=num_of_labels,regions=largest_mass_regions,flood=largest_mass_flood)
+np.savez(PATH+output_fname+'_full.npz',ucrit=ucrit_vals,phibar=com_y_full,lambdabar=com_x_full,alpha=orientation_values_full,umean=mean_intensity_full,area=area_full,umass=mass_full,major_axis_length=major_axis_length_full,minor_axis_length=minor_axis_length_full,labels=num_of_labels,regions=regions_store,flood=flood_store)
