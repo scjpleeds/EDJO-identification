@@ -87,7 +87,7 @@ def blob_finder(wind,Ucrit,gridarea,region_length,zonal_length):
     regions = np.zeros(len(days),dtype=object)
     floods = np.zeros(len(days),dtype=object)
     maximas = np.zeros(len(days),dtype=object)
-
+    ucrit = np.zeros(len(days),dtype=object)
     lon,lat = wind.coord('longitude').points,wind.coord('latitude').points
     if np.max(lon)!=180: 
         lon = (lon + 180) % 360 - 180
@@ -154,10 +154,10 @@ def blob_finder(wind,Ucrit,gridarea,region_length,zonal_length):
         
 
 
-                
+        ucrit[day] = Ucrit        
         maximas[day] = maximas_store
         regions[day] = regions_store
         floods[day] = flood_store
 
-    return regions,floods,maximas
+    return regions,floods,maximas,ucrit
     
