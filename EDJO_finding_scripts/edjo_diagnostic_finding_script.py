@@ -31,9 +31,6 @@ if np.diff(pressure_constraint)!=0:
 
 # Running EDJO finding algorithm 
     
-
-
-
 output_fname ='' 
 regions_store,flood_store,region_maxima_coords,ucrit_vals= blob_finder(var_cube,flood_val,grid_cube,min_length,min_zonal_length)
 
