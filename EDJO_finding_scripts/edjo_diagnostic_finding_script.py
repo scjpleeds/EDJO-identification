@@ -7,21 +7,6 @@ from inputs import *
 import tqdm as tqdm
 warnings.filterwarnings('ignore')
 
-
-#PATH = '/Users/admin/OneDrive - University of Leeds/ARC4/scripts/' # path for where to save the files 
-# two output files are made, <output_fname>_full.npz contains all data with no distinction between regions 
-                  # <output_fname>_lm.npz contains the data of the regions with the largest umass on days with multiple objects
-
-var_cube_fname =  ' ' # Zonal wind cube file path 
-grid_cube_fname = ' ' # grid area cube file path 
-
-
-cube_constraints = [(-60,0),(15,75),(850,850)] # Cube constraints, if already done with input cube enter as None 
-
-filtering = True # Apply a low pass Lanczos filter to the wind data 
-window, length = 61,10
-
-
 # Importing data
 var_cube =  iris.load_cube(var_cube_fname)
 grid_cube = iris.load_cube(grid_cube_fname)
