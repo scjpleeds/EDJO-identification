@@ -1,7 +1,7 @@
 # EDJO-identification
 Python code for the Eddy-Driven Jet Object (EDJO) identification methodology described in the paper:
 
-A new characterization of the North Atlantic eddy-driven jet using 2-dimensional moment analysis. 
+A new characterization of the North Atlantic eddy-driven jet using 2-dimensional moment analysis (10.5194/egusphere-2024-318)
 
 ## Folder contents 
 In the folder EDJO_finding_scripts, you will find 5 files: 
